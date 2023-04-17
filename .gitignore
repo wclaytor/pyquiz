@@ -134,3 +134,12 @@ dmypy.json
 
 # notes
 docs/notes
+
+# pytest_cache
+.pytest_cache
+
+# vscode
+.vscode
+
+# zip files
+*.zip
