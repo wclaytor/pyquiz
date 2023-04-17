@@ -13,7 +13,7 @@ pipenv install
 
 ### Run the script
 ```
-pipenv run python ./lib/pyquiz.py
+pipenv run python ./src/pyquiz.py
 ```
 
 ## License
