@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 markdown = "*"
+pyfiglet = "*"
 pytest = "*"
 selenium = "*"
 webdriver-manager = "*"
