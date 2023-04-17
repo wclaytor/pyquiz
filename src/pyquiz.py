@@ -3,13 +3,25 @@ import pyfiglet
 import markdown
 import random
 
-# testing an important update!!!
+# To use your own settings, set USER_MODE to True
+# Then set the USER_SKILLS_DIR and USER_NUM_QUESTIONS values below
+USER_MODE = False
+USER_SKILLS_DIR = "../pyquiz-skills"
+USER_NUM_QUESTIONS = 15
 
-# The directory containing the skills quizzes
-SKILLS_DIR = "./skills"
+# The default directory containing the example skills quizzes
+DEFAULT_SKILLS_DIR = "./skills"
 
 # The default number of questions to ask in a quiz
 DEFAULT_NUM_QUESTIONS = 3
+
+# TODO: handle settings
+if USER_MODE:
+    SKILLS_DIR = USER_SKILLS_DIR
+    NUM_QUESTIONS = USER_NUM_QUESTIONS
+else:
+    SKILLS_DIR = DEFAULT_SKILLS_DIR
+    NUM_QUESTIONS = DEFAULT_NUM_QUESTIONS
 
 class Skill:
     def __init__(self, skill_name, skill_dir):
@@ -21,6 +33,7 @@ class SkillsList:
         self.skills = self.get_available_skills()
 
     def get_available_skills(self):
+
         skills = []
         for skill in os.listdir(SKILLS_DIR):
             if os.path.isdir(os.path.join(SKILLS_DIR, skill)):
@@ -50,9 +63,10 @@ class SkillsList:
 class QuestionsFile:
     def __init__(self, file_path):
         self.file_path = file_path
-    # TODO: update to use markdown for parsing questions
-    # TODO: update to handle separating questions here, but let the Question class handle the answer choices
+
     def parse_questions(self):
+
+        # TODO: update to use markdown for parsing questions
         with open(self.file_path, 'r') as file:
             file_contents = file.read()
 
@@ -66,38 +80,67 @@ class QuestionsFile:
             return questions_list
 
 class Question:
-
     def __init__(self, question_text):
         self.question_text = question_text
+        self.parse_question()
+ 
+    def parse_question(self):
 
         # question_data
-        question_data = question_text.split("\n")
+        self.question_data = self.question_text.split("\n")
+        self.parse_heading()
+        self.parse_contents()
+        self.parse_choices()
 
-        # heading
-        self.heading = question_data[0].split(". ")[1]
+    def parse_heading(self):
+        
+        # the first line should be in the format "1. Question heading"
+        # but there are questions that have the number but don't have a heading
+        dot_splitter = '. '
+        heading_array = self.question_data[0].split(dot_splitter)
+        if len(heading_array) > 1:
+            self.heading = heading_array[1]
 
+        else:
+            self.heading = "Untitled Question"
+
+    def parse_contents(self):
+        
         # contents of question is everything between the heading and the answer choices
         contents = []
-        question_data_line = 1
-        current_line = question_data[question_data_line]
+        self.question_data_line = 1
+        current_line = self.question_data[self.question_data_line]
         while current_line.startswith('-') == False:
             if current_line != '```':
                 contents.append(current_line)
 
-            question_data_line += 1
-            current_line = question_data[question_data_line]
+            self.question_data_line += 1
+            current_line = self.question_data[self.question_data_line]
 
         self.contents = contents
 
-        # Extract answer choices
+    def parse_choices(self):
+        
+        # Extract choices
         choices = []
-        current_line = question_data[question_data_line]
+        current_line = self.question_data[self.question_data_line]
 
         # handle each choice
         while current_line.startswith('-'):
 
-            # choice_text starts after the closing bracket
-            choice_text = current_line.split('] ')[1]
+            # choices can sometimes be multi-line
+            # so we need to check for text after the closing bracket
+            braket_splitter = '] '
+            current_line_array = current_line.split(braket_splitter)
+            if len(current_line_array) > 1:
+
+                # single line choice
+                choice_text = current_line_array[1]
+            else:
+
+                # multi-line choice
+                choice_text = ""
+
 
             # add choice to choices
             choices.append(choice_text)
@@ -108,8 +151,8 @@ class Question:
                 #  this is the correct answer
                 self.correct_answer = len(choices)
 
-            question_data_line += 1
-            current_line = question_data[question_data_line]
+            self.question_data_line += 1
+            current_line = self.question_data[self.question_data_line]
 
         self.choices = choices
 
@@ -157,11 +200,11 @@ class QuestionsList:
 
     def display_example(self):
         question = self.questions[2]
-        question.display_question()
+        question.display_question(1)
         print("Correct answer: {}".format(question.correct_answer))
         print()
         
-    def get_random_questions(self, num_questions=DEFAULT_NUM_QUESTIONS):
+    def get_random_questions(self, num_questions=NUM_QUESTIONS):
         return random.sample(self.questions, num_questions)
 
 class Quiz:
