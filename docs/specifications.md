@@ -1,4 +1,4 @@
-# py-quiz
+# pyquiz
 
 ## Specifications
 This script will take a list of questions as input

@@ -1,72 +1,25 @@
-# py-quiz notes
+# pyquiz project plan
+This original project plan was proposed by ChatGPT after some iteration on the project idea.
 
-## Goal
-Create a python script named pyquiz that quizzes the user based on a supplied list of questions.
+## Plan
+Create a Skill class that represents a skill in which the user can be quizzed. The Skill class should have properties such as skill name, skill directory path, and a method to retrieve the list of available skills from the ./skills directory.
 
-## Background
-* Skills
-The directory `./skills` contains a subdirectory for each skill. 
-Each subdirectory contains a file named `{$skill}-quiz.md` that contains a list of questions for that skill.
+Create a QuestionsFile class that represents a markdown file containing the list of questions for a specified skill. The QuestionsFile class should have properties such as file path, skill name, and a method to parse the markdown file and extract the questions into a list of Question objects.
 
-The script should ask the user to choose a skill from the list of skills in the `./skills` directory.
+Create a Question class that represents a single question. The Question class should have properties such as question text, answer choices, and correct answer.
 
-* Questions
-The questions are in markdown format and the correct answer for each question is marked with an X.
-The script should parse the questions file for the chosen skill and extract the questions into a list of questions.
+Create a QuestionsList class that represents the list of questions extracted from the QuestionsFile for a specified Skill. The QuestionsList class should have methods to randomly choose 5 questions from the list and to record the user's answers for each question.
 
-* Quiz
-The script should ask the user to choose 5 questions from the list at random.
-The script should ask the user each question separately and record the user's answer.
-The script should display the user's results at the end of the quiz.
+Create a Quiz class that represents a quiz for a specified Skill. The Quiz class should use the Skill, QuestionsFile, and QuestionsList classes to create a quiz for the user. The Quiz class should have methods to display the quiz to the user, record the user's answers, calculate the result, and display the result at the end of the quiz.
 
+Implement the user stories, including the ability to choose a skill, take a quiz, review results, practice a quiz, and get a skill badge.
 
-## Specifications
-The script should use the following classes:
+Test the pyquiz script with various skills and different scenarios to ensure it is working correctly and providing accurate results.
 
-Skill:
-An area of knowledge in which to be quizzed
-The quizzes directory contains one or more sub-directories with the name of each skill
+Add error handling and input validation to handle any possible errors or invalid inputs from the user.
 
-QuestionsFile:
-A markdown file containing the list of questions for a specified skill
-The markdown file should be parsed into a list of Questions
+Create a user-friendly command-line interface (CLI) for the pyquiz script, with clear instructions and prompts for the user.
 
-Question:
-An entity comprising the question itself along with examples, etc..., as well as the choices for the question and the correct answer
+Add additional features or improvements to enhance the functionality and usability of the pyquiz script, such as allowing the user to customize the number of questions in a quiz, displaying a progress bar during the quiz, and providing hints or explanations for incorrect answers.
 
-QuestionsList:
-The list of questions extracted from the QuestionsFile for a specified Skill
-
-Quiz:
-The set of randomly chosen Questions for the specified Skill as well as the user specified answers and the overall result
-The result should be displayed as a percentage of correct answers for the quiz
-The pass / fail result should be displayed (75% = pass)
-
-## User Stories
-### 01
-
-#### 01.01 - Choose a skill
-As a user 
-I want to select from a list of skills
-So that I can practice a specific skill
-
-#### 01.02 - Take a quiz
-As a user
-I want to take a quiz on a specific skill
-So that I can practice the questions for that skill
-
-#### 01.03 - Review results
-As a user
-I want to review my results at the end of the quiz
-So that I know how I did
-
-#### 01.04 - Practice a quiz
-As a user
-I want to practice a quiz on a specific skill
-So that I can improve my results
-
-#### 01.05 - Get a skill badge
-As a user
-I want to get a skill badge
-So that I can show off my skills
-
+Document the usage and functionality of the pyquiz script in a README file, including installation instructions, usage examples, and any other relevant information for users to use the script effectively.

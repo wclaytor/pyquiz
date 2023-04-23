@@ -1,4 +1,4 @@
-# py-quiz
+# pyquiz user stories
 
 Format:
 As a user 

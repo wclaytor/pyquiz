@@ -1,0 +1,65 @@
+{
+    "user_stories": [
+      {
+        "Title": "User story: Pass Skill Quizzes",
+        "Priority": "High",
+        "Points": 8,
+        "User story": "As a user, I want to pass skill quizzes, so that I can get skill badges.",
+        "Acceptance criteria": [
+          "Given a quiz with questions and answers",
+          "When answering all questions correctly",
+          "Then the quiz should be marked as passed"
+        ],
+        "Status": "Not implemented"
+      },
+      {
+        "Title": "User story: Practice Skill Quizzes",
+        "Priority": "Medium",
+        "Points": 5,
+        "User story": "As a user, I want to practice skill quizzes, so that I can improve my results.",
+        "Acceptance criteria": [
+          "Given a quiz with questions and answers",
+          "When answering questions with different results",
+          "Then the quiz should provide feedback on correct and incorrect answers"
+        ],
+        "Status": "Not implemented"
+      },
+      {
+        "Title": "User story: Randomized Questions",
+        "Priority": "High",
+        "Points": 5,
+        "User story": "As a user, I want to be asked 5 questions from the list at random, so that I can practice different questions each time.",
+        "Acceptance criteria": [
+          "Given a list of questions",
+          "When starting a quiz",
+          "Then 5 questions should be randomly selected from the list"
+        ],
+        "Status": "Implemented"
+      },
+      {
+        "Title": "User story: One Question at a Time",
+        "Priority": "Medium",
+        "Points": 3,
+        "User story": "As a user, I want to be asked each question separately, so that I can focus on each question separately.",
+        "Acceptance criteria": [
+          "Given a list of questions",
+          "When asking a question",
+          "Then only one question should be presented at a time"
+        ],
+        "Status": "Implemented"
+      },
+      {
+        "Title": "User story: Quiz Results",
+        "Priority": "High",
+        "Points": 5,
+        "User story": "As a user, I want to review my results at the end of the quiz, so that I know how I did.",
+        "Acceptance criteria": [
+          "Given a completed quiz",
+          "When finishing the quiz",
+          "Then display the correct answers, user's selected answers, and overall quiz result"
+        ],
+        "Status": "Implemented"
+      }
+    ]
+  }
+  

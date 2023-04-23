@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Stories</title>
+    <style>
+        /* CSS styles for the Trello-style board */
+        /* ... */
+    </style>
+</head>
+<body>
+    <h1>User Stories</h1>
+    <div id="board"></div>
+
+    <script>
+        // Define the user stories as a JavaScript object
+        var userStories = []; // Initialize an empty array for user stories
+
+        // Example of a user story
+        var exampleUserStory = {
+            "title": "User story: Pass Skill Quizzes",
+            "priority": "High",
+            "points": 8,
+            "userStory": "As a user, I want to pass skill quizzes, so that I can get skill badges.",
+            "acceptanceCriteria": [
+                "Given a quiz with questions and answers",
+                "When answering all questions correctly",
+                "Then the quiz should be marked as passed"
+            ],
+            "status": "Not implemented"
+        };
+
+        // Add the example user story to the user stories array
+        userStories.push(exampleUserStory);
+
+        // Function to render the user stories in the Trello-style board
+        function renderUserStories() {
+            var boardElem = document.getElementById('board');
+            boardElem.innerHTML = '';
+
+            // Loop through each user story and create a card for it
+            userStories.forEach(function (userStory) {
+                var cardElem = document.createElement('div');
+                cardElem.className = 'card';
+                cardElem.innerHTML = '<div class="title">' + userStory.title + '</div>' +
+                    '<div class="priority">Priority: ' + userStory.priority + '</div>' +
+                    '<div class="points">Points: ' + userStory.points + '</div>' +
+                    '<div class="status">Status: ' + userStory.status + '</div>' +
+                    '<div class="user-story">User Story:<br>' + userStory.userStory + '</div>' +
+                    '<div class="acceptance-criteria">Acceptance Criteria:<br>' + userStory.acceptanceCriteria.join('<br>') + '</div>';
+
+                boardElem.appendChild(cardElem);
+            });
+        }
+
+        // Call the function to render the user stories on page load
+        window.onload = renderUserStories;
+    </script>
+</body>
+</html>
