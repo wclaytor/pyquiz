@@ -11,6 +11,11 @@ pyquiz is a Python script that allows you to take practice quizzes and see your 
 pipenv install
 ```
 
+### Update requirements.txt
+```
+pipenv run pip freeze > requirements.txt
+```
+
 ### Run the script
 ```
 pipenv run python ./src/pyquiz.py
