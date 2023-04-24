@@ -2,7 +2,6 @@
 
 import os
 import pyfiglet
-import markdown
 import random
 
 # To use your own settings, set USER_MODE to True
@@ -80,8 +79,14 @@ class SkillsList:
         str: The selected skill.
         None: If the user chooses to quit.
         """
+        choice_prompt = "Enter the number of the corresponding skill (or 'q' to quit): "
+        invalid_choice_prompt = """
+Invalid choice. 
+Please enter a number between 1 and {} or 'q' to quit.".format(len(self.skills))
+"""
+
         while True:
-            choice = input("Enter the number of the skill you want to quiz on (or 'q' to quit): ")
+            choice = input(choice_prompt)
             if choice == 'q':
                 return None
             try:
@@ -89,9 +94,9 @@ class SkillsList:
                 if 1 <= choice <= len(self.skills):
                     return self.skills[choice-1]
                 else:
-                    print("Invalid choice. Please enter a number between 1 and {} or 'q' to quit.".format(len(self.skills)))
+                    print(invalid_choice_prompt)
             except ValueError:
-                print("Invalid choice. Please enter a number or 'q' to quit.")
+                print(invalid_choice_prompt)
 
 class QuestionsFile:
     """
@@ -188,7 +193,7 @@ class Question:
         contents = []
         self.question_data_line = 1
         current_line = self.question_data[self.question_data_line]
-        while current_line.startswith('-') == False:
+        while current_line.startswith("-") is False:
             if current_line != '```':
                 contents.append(current_line)
 
@@ -472,7 +477,10 @@ if __name__ == '__main__':
         print()
 
     # questions
-    questions_path = os.path.join(SKILLS_DIR, selected_skill, "{}-quiz.md".format(selected_skill))
+    questions_path = os.path.join(SKILLS_DIR, 
+                                  selected_skill, 
+                                  "{}-quiz.md".format(selected_skill))
+    
     if os.path.exists(questions_path):
         
         # parse questions

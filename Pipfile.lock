@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "203d98b655dcbff68a4b1ac54ca6783a4671db7dcfe3d7c9fb0336e90a40d159"
+            "sha256": "6166fbf17c60abba9d8b75763bf5afbe23519a51eb91b0bbd5fd6a65770cad0e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -289,6 +289,29 @@
             ],
             "markers": "python_version >= '3.7' and python_version < '4'",
             "version": "==2.28.2"
+        },
+        "ruff": {
+            "hashes": [
+                "sha256:083bac6e238d8b7d5ac3618666ea63b7ac661cf94c5da160070a58e190082831",
+                "sha256:0baff3c9a22227358ea109c165efe62dbdd0f2b9fd5256567dda8682b444fe23",
+                "sha256:15bbfa2d15c137717627e0d56b0e535ae297b734551e34e03fcc25d7642cf43a",
+                "sha256:15bf5533ce169aebbafa00017987f673e879f60a625d932b464b8cdaf32a4fce",
+                "sha256:24f989363e9bb5d0283490298102a5218682e49ebf300e445d69e24bee03ac83",
+                "sha256:3909e249d984c4517194005a1c30eaa0c3a6d906c789d9fc0c9c7e007fb3e759",
+                "sha256:3c24e678e43ca4b67e29cc9a7a54eea05f31a5898cbf17bfec47b68f08d32a60",
+                "sha256:4cca35e2aeddff72bb4379a1dabc134e0c0d25ebc754a2cb733a1f8d4dbbb5e0",
+                "sha256:4e2813013a19b3e147e840bdb2e42db5825b53b47364e58e7b467c5fa47ffda2",
+                "sha256:85ca04348372efc59f6ee808d903d35e0d352cf2c78e487757cd48b65104b83e",
+                "sha256:973ac29193f718349cf5746b7d86dfeaf7d40e9651ed97790a9b9327305888b9",
+                "sha256:9b7e0ca6821aafbd2b059df3119fcd5881250721ca8e825789fd2c471f7c59be",
+                "sha256:b379e9765afa679316e52288a942df085e590862f8945088936a7bce3116d8f3",
+                "sha256:c26c1abd420d041592d05d63aee8c6a18feb24aed4deb6e91129e9f2c7b4914a",
+                "sha256:d25a94996b2037e566c2a801c8b324c0a826194d5d4d90ad7c1ccb8cf06521fa",
+                "sha256:f102904ebe395acd2a181d295b98120acd7a63f732b691672977fc688674f4af",
+                "sha256:faea54231c265f5349975ba6f3d855b71881a01f391b2000c47740390c6d5f68"
+            ],
+            "index": "pypi",
+            "version": "==0.0.262"
         },
         "selenium": {
             "hashes": [

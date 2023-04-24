@@ -40,7 +40,13 @@ class TestSkillsList(unittest.TestCase):
 
 class TestQuestion(unittest.TestCase):
     def setUp(self):
-        self.question_text = "#### Q1. What is the capital of France?\n\n- [x] Paris\n- [ ] London\n- [ ] Berlin\n- [ ] Madrid\n"
+        self.question_text = """#### Q1. What is the capital of France?
+
+- [x] Paris
+- [ ] London
+- [ ] Berlin
+- [ ] Madrid"""
+
         self.question = Question(self.question_text)
 
     def test_parse_question(self):
@@ -51,7 +57,13 @@ class TestQuestion(unittest.TestCase):
         self.assertEqual(self.question.heading, "What is the capital of France?")
 
     def test_parse_untitled_heading(self):
-        question_text = "#### Q1\n\n- [x] Paris\n- [ ] London\n- [ ] Berlin\n- [ ] Madrid\n"
+        question_text = """#### Q1
+        
+- [x] Paris
+- [ ] London
+- [ ] Berlin
+- [ ] Madrid"""
+
         question = Question(question_text)
         self.assertEqual(question.heading, "Untitled Question")
 

@@ -9,6 +9,7 @@ markdown = "*"
 pyfiglet = "*"
 pytest = "*"
 pytest-cov = "*"
+ruff = "*"
 selenium = "*"
 webdriver-manager = "*"
 
