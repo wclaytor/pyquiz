@@ -25,7 +25,6 @@ else:
     SKILLS_DIR = DEFAULT_SKILLS_DIR
     NUM_QUESTIONS = DEFAULT_NUM_QUESTIONS
 
-
 class Skill:
     """
     A class that represents a skill.
@@ -257,7 +256,7 @@ class Question:
 
         # if the choice is correct, set it
         if correct:
-            self.correct_answer = len(self.choices)
+            self.correct_answer = len(self.choices) + 1
 
     def parse_explanation(self):
         """
@@ -303,9 +302,14 @@ class Question:
         
         print()
 
+        # explanation
         if hasattr(self, 'explanation'):
             print(self.explanation)
             print()
+
+        # display correct answer for debugging
+        # print("Correct answer: {}".format(self.correct_answer))
+        # print()
         
     def check_answer(self, answer):
         """
@@ -385,6 +389,24 @@ class QuestionsList:
         list: A list of Question objects.
         """
         return random.sample(self.questions, num_questions)
+
+    def get_first_question(self):
+        """
+        Returns the first question in the list.
+
+        Returns:
+        Question: The first question in the list.
+        """
+        return [self.questions[0]]
+
+    def get_last_question(self):
+        """
+        Returns the last question in the list.
+
+        Returns:
+        Question: The last question in the list.
+        """
+        return [self.questions[-1]]
 
 class Quiz:
     """
@@ -482,6 +504,12 @@ if __name__ == '__main__':
         # display example question
         # questions_list.display_example()
 
-        # quiz
+        # create quiz with just the first or last question (helpful for debugging)
+        # quiz = Quiz(selected_skill, questions_list.get_first_question())
+        # quiz = Quiz(selected_skill, questions_list.get_last_question())
+
+        # create quiz with random questions
         quiz = Quiz(selected_skill, questions_list.get_random_questions())
+
+        # display quiz
         quiz.display_quiz()
