@@ -87,3 +87,41 @@ print("Hello World")
 - [x] Answer 3
 - [ ] Answer 4
 
+#### Q123.
+
+```python
+# some code
+
+```
+
+- [x] A
+
+```python
+# some code
+
+```
+
+- [ ] B
+
+```python
+# some code
+
+```
+
+- [ ] C
+
+```python
+# some code
+
+```
+
+- [ ] D
+
+```python
+# some code
+
+```
+
+**Explanation:** This is some crazy code!
+
+[Reference](http://www.example.com)
