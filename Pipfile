@@ -4,9 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+coverage = "*"
 markdown = "*"
 pyfiglet = "*"
 pytest = "*"
+pytest-cov = "*"
 selenium = "*"
 webdriver-manager = "*"
 

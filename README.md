@@ -16,6 +16,37 @@ pipenv install
 pipenv run python ./src/pyquiz.py
 ```
 
+### Run the tests
+#### Standard
+To run the tests, use the following command:
+```
+pipenv run pytest
+```
+
+#### Verbose
+To run the tests in verbose mode, use the following command:
+```
+pipenv run pytest -v
+```
+
+#### Run a specific test
+To run a specific test, use the following command:
+```
+pipenv run pytest -v -k test_name
+```
+
+#### Coverage
+##### Run the tests
+To run the tests and generate a coverage report, use the following command:
+```
+pipenv run pytest --cov-report html:coverage --cov=./src
+```
+
+##### View the coverage report
+To view the coverage report, open the `./coverage/index.html` file in your browser.
+
+---
+
 ## Skills
 As we work to improve our skills, it is important to practice.
 
@@ -63,9 +94,20 @@ USER_NUM_QUESTIONS = 15
 
 ```
 
+---
+
+## Built with
+- [Python](https://www.python.org/)
+- [Pipenv](https://pipenv.pypa.io/en/latest/)
+- [Pytest](https://docs.pytest.org/en/stable/)
+- [Coverage.py](https://coverage.readthedocs.io/en/coverage-5.3.1/)
+
+---
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+---
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
