@@ -1,6 +1,8 @@
 # src/pyquiz.py
 
 import os
+import sys
+import datetime
 import pyfiglet
 import random
 
@@ -14,7 +16,13 @@ USER_NUM_QUESTIONS = 15
 DEFAULT_SKILLS_DIR = "./skills"
 
 # The default number of questions to ask in a quiz
-DEFAULT_NUM_QUESTIONS = 3
+DEFAULT_NUM_QUESTIONS = 5
+
+# question designator
+QUESTION_DESIGNATOR = "#### Q"
+
+# results directory
+RESULTS_DIR = "./results"
 
 # TODO: handle settings
 if USER_MODE:
@@ -121,8 +129,8 @@ class QuestionsFile:
         with open(self.file_path, 'r') as file:
             file_contents = file.read()
 
-            # Split questions using the "#### Q" pattern
-            questions = file_contents.split("#### Q")[1:]
+            # Split questions using the QUESTION_DESIGNATOR pattern
+            questions = file_contents.split(QUESTION_DESIGNATOR)[1:]
             questions_list = QuestionsList()
             for question in questions:
                 # Add question to questions_list
@@ -156,6 +164,7 @@ class Question:
 
     def __init__(self, question_text):
         self.question_text = question_text
+        self.question_markdown = QUESTION_DESIGNATOR + question_text
         self.parse_question()
  
     def parse_question(self):
@@ -315,6 +324,18 @@ class Question:
         # display correct answer for debugging
         # print("Correct answer: {}".format(self.correct_answer))
         # print()
+
+    def get_question_markdown(self):
+        """
+        Returns the question in markdown format.
+        """
+        return self.question_markdown
+    
+    def display_question_markdown(self):
+        """
+        Displays the question in markdown format.
+        """
+        print(self.question_markdown)
         
     def check_answer(self, answer):
         """
@@ -336,6 +357,12 @@ class Question:
         except ValueError:
             return False
 
+    def get_correct_answer(self):
+        """
+        Returns the correct answer.
+        """
+        return self.correct_answer
+    
 class QuestionsList:
     """
     A class that represents a list of questions.
@@ -445,6 +472,9 @@ class Quiz:
         # clear the screen
         os.system('cls' if os.name == 'nt' else 'clear')
 
+        # create a new QuizResults object
+        quiz_results = QuizResults(self.skill_name)
+
         question_ct = 1
         for question in self.questions:
 
@@ -459,6 +489,8 @@ class Quiz:
             else:
                 print("Incorrect!")
 
+            quiz_results.append(Result(question, answer))
+
             print()
             question_ct += 1
 
@@ -468,9 +500,247 @@ class Quiz:
             # clear the screen
             os.system('cls' if os.name == 'nt' else 'clear')
 
-
+        # display quiz complete message
+        print("Quiz complete!")
+        print()
         print("You scored {}/{}.".format(self.score, len(self.questions)))
         print()
+
+        # set the score
+        quiz_results.set_score(self.score)
+
+        # display quiz results
+        # quiz_results.display_results_summary()
+
+        # write quiz results to file
+        quiz_results.write_markdown_results()
+
+class Result:
+    """
+    A class that represents a result.
+
+    Parameters:
+    question (Question): The question.
+    answer (str): The user provided answer.
+
+    Methods:
+    display_result(): Displays the result.
+
+    """
+    def __init__(self, question, answer):
+        self.question = question
+        self.answer = answer
+        self.correct_answer = question.get_correct_answer()
+        self.result = question.check_answer(answer)
+
+    def display_result(self):
+        """
+        Displays the result.
+        """
+        print("Question:")
+        print(self.question.question_text)
+        print()
+        print("Your answer: {}".format(self.answer))
+        print()
+        print("Correct answer: {}".format(self.correct_answer))
+        print()
+        print("Result: {}".format(self.result))
+        print()
+
+    def get_result(self):
+        """
+        Returns the result.
+        """
+        return self.result
+    
+    def get_result_markdown(self):
+        """
+        Returns the result in markdown format.
+        """
+        # question markdown
+        output = self.question.question_markdown
+        output += "\n\n"
+
+        # answer markdown
+        output += "**Your answer:** {}".format(self.answer)
+        output += "\n\n"
+
+        # correct answer markdown
+        output += "**Correct answer:** {}".format(self.correct_answer)
+        output += "\n\n"
+
+        # result markdown
+        output += "**Result:** {}".format(self.result)
+        output += "\n\n"
+
+        return output
+    
+    def get_result_html(self):
+        """
+        Returns the result in html format.
+        """
+        return "<p><strong>Question:</strong> {}</p><p><strong>Your answer:</strong> {}</p><p><strong>Correct answer:</strong> {}</p><p><strong>Result:</strong> {}</p>".format(self.question.question_text, self.answer, self.correct_answer, self.result)
+    
+class QuizResults:
+    """
+    A class that represents a list of results.
+
+    Parameters:
+    results (list): A list of Result objects.
+
+    Methods:
+    append(): Appends a result to the list.
+    display_results(): Displays all results in the list.
+    """
+    def __init__(self, skill_name, results = []):
+        self.skill_name = skill_name
+        self.results = results
+    
+    def __len__(self):
+        return len(self.results)
+
+    def append(self, result):
+        """
+        Appends a result to the list.
+
+        Parameters:
+        result (Result): The result to append.
+        """
+        self.results.append(result)
+
+    def set_score(self, score):
+        """
+        Sets the score.
+
+        Parameters:
+        score (int): The score.
+        """
+        self.score = score
+        # print("Per the results, the score has been set: {}".format(self.score))
+
+    def display_results_summary(self):
+        """
+        Displays a summary of the results.
+        """
+        # summary
+        print("Quiz Results Summary:")
+        print("Per the results, you scored {}/{}.".format(self.score, len(self.results)))
+        print()
+
+    def display_results(self):
+        """
+        Displays all results in the list.
+        """
+        # summary
+        self.display_results_summary()
+
+        # results
+        for result in self.results:
+            print ("")
+            result.display_result()
+            print ("")
+
+    def write_markdown_results(self):
+        """
+        Writes the results to a markdown file.
+
+        The file is written to the results directory in the following format:
+        <skill_name>/<date_time>-quiz-results.md
+
+        The file is written in the following format:
+        ## <skill_name>
+
+        ## Quiz Results
+
+        ### <date_time>
+
+        <question_1_markdown>
+
+        <question_2_markdown>
+
+        ...
+
+        @todo: 
+        - refactor heading template
+
+        """
+        # get the current date and time
+        now = datetime.datetime.now()
+        date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
+
+        # create the results directory if it doesn't exist
+        if not os.path.exists(RESULTS_DIR):
+
+            # create the results directory
+            os.mkdir(RESULTS_DIR)
+
+        # create the skill directory if it doesn't exist
+        skill_dir = os.path.join(RESULTS_DIR, self.skill_name)
+        if not os.path.exists(skill_dir):
+                
+            # create the skill directory
+            os.mkdir(skill_dir)
+
+        # create the results file
+        results_file = os.path.join(skill_dir, "{}-quiz-results.md".format(date_time))
+
+        # output message
+        print("Writing results to file: {}".format(results_file))
+        print()
+
+        # heading (iqnore ruff for now...)
+        heading = """## {}
+## Quiz Results
+### Summary:
+**Date:** {}
+
+**Score:** {}/{}
+
+**Percentage:** {}%
+
+---
+### Questions:
+""".format(self.skill_name, date_time, self.score, len(self.results), (self.score / len(self.results)) * 100)  # noqa: E501
+        
+        # write the results to the file
+        with open(results_file, "w") as f:
+            # write the heading
+            f.write(heading)
+
+            for result in self.results:
+                f.write(result.get_result_markdown())
+                f.write("\n\n---\n\n")
+
+    def write_html_results(self):
+        """
+        Writes the results to an html file.
+        """
+        # get the current date and time
+        now = datetime.now()
+        date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
+
+        # create the results directory if it doesn't exist
+        if not os.path.exists(RESULTS_DIR):
+
+            # create the results directory
+            os.mkdir(RESULTS_DIR)
+
+        # create the skill directory if it doesn't exist
+        skill_dir = os.path.join(RESULTS_DIR, self.results[0].question.skill_name)
+        if not os.path.exists(skill_dir):
+                
+                # create the skill directory
+                os.mkdir(skill_dir)
+
+        # create the results file
+        results_file = os.path.join(skill_dir, "{}-quiz-results.html".format(date_time))
+
+        # write the results to the file
+        with open(results_file, "w") as f:
+            for result in self.results:
+                f.write(result.get_result_html())
+                f.write("\n\n")
+
 
 if __name__ == '__main__':
     """
