@@ -7,9 +7,9 @@ import random
 
 # To use your own settings, set USER_MODE to True
 # Then set the USER_SKILLS_DIR and USER_NUM_QUESTIONS values below
-USER_MODE = False
+USER_MODE = True
 USER_SKILLS_DIR = "../pyquiz-skills"
-USER_NUM_QUESTIONS = 15
+USER_NUM_QUESTIONS = 5
 
 # The default directory containing the example skills quizzes
 DEFAULT_SKILLS_DIR = "./skills"
@@ -241,7 +241,23 @@ class Question:
                     correct = False
 
                 # make this the current choice
-                current_choice = line.split('] ')[1]
+                # encountered out of index error ... debug...
+                # current_choice = line.split('] ')[1]
+                current_choice_debug = line.split('] ')
+                if len(current_choice_debug) > 1:
+                    current_choice = current_choice_debug[1]
+                else:
+
+                    # # halt execuction with error
+                    # print("Error: encountered out of index error in parse_choices()")
+                    # print("current_choice_debug: {}".format(current_choice_debug))
+                    # print("line: {}".format(line))
+                    # print("question_markdown: {}".format(self.question_markdown))
+
+                    # # halt execution
+                    # sys.exit(1)
+
+                    current_choice = " \n"
 
             # this is a continuation of the current choice
             elif current_choice is not None:
