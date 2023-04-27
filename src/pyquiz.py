@@ -1,7 +1,6 @@
 # src/pyquiz.py
 
 import os
-import sys
 import datetime
 import pyfiglet
 import random
@@ -579,7 +578,9 @@ class Result:
         """
         Returns the result in html format.
         """
-        return "<p><strong>Question:</strong> {}</p><p><strong>Your answer:</strong> {}</p><p><strong>Correct answer:</strong> {}</p><p><strong>Result:</strong> {}</p>".format(self.question.question_text, self.answer, self.correct_answer, self.result)
+        # ignore ruff line too long
+        # pylint: disable=line-too-long
+        return "<p><strong>Question:</strong> {}</p><p><strong>Your answer:</strong> {}</p><p><strong>Correct answer:</strong> {}</p><p><strong>Result:</strong> {}</p>".format(self.question.question_text, self.answer, self.correct_answer, self.result) # noqa: E501
     
 class QuizResults:
     """
@@ -624,7 +625,7 @@ class QuizResults:
         """
         # summary
         print("Quiz Results Summary:")
-        print("Per the results, you scored {}/{}.".format(self.score, len(self.results)))
+        print("You scored {}/{}.".format(self.score, len(self.results)))
         print()
 
     def display_results(self):
