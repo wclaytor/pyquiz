@@ -143,3 +143,6 @@ docs/notes
 
 # zip files
 *.zip
+
+# results
+results
