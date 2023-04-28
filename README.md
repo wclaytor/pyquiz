@@ -18,7 +18,7 @@ pipenv run pip freeze > requirements.txt
 
 ### Run the script
 ```
-pipenv run python ./src/pyquiz.py
+pipenv run python ./pyquiz.py
 ```
 
 ### Run the tests

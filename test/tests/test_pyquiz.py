@@ -4,7 +4,10 @@ import unittest
 from unittest.mock import patch
 
 # pyquiz
-from src.pyquiz import Skill, SkillsList, Question, QuestionsFile
+from src.pq.question import Question
+from src.pq.questionsFile import QuestionsFile
+from src.pq.skill import Skill
+from src.pq.skillsList import SkillsList
 
 class TestSkill(unittest.TestCase):
     def test_init(self):
