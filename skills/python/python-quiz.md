@@ -1,6 +1,6 @@
 ## Python
 
-#### Q1. Sample question 1?
+#### Q1. Sample question 1? This question has multiple sentences in the heading. But the last does not end in a question mark.
 ```
 # this is some code
 print("Hello World")

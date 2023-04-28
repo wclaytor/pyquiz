@@ -54,10 +54,16 @@ class Question:
         
         # the first line should be in the format "1. Question heading"
         # but there are questions that have the number but don't have a heading
+        line = self.question_data[0]
         dot_splitter = '. '
-        heading_array = self.question_data[0].split(dot_splitter)
+        heading_array = line.split(dot_splitter)
         if len(heading_array) > 1:
-            self.heading = heading_array[1]
+            # the question number is the first element
+            self.question_number = heading_array[0]
+
+            # the heading is everything after the number
+            # replace self.question_number with an empty string
+            self.heading = line.replace(self.question_number + dot_splitter, "")
 
         else:
             self.heading = "Untitled Question"
@@ -72,9 +78,7 @@ class Question:
         self.question_data_line = 1
         current_line = self.question_data[self.question_data_line]
         while current_line.startswith("-") is False:
-            if current_line != '```':
-                contents.append(current_line)
-
+            contents.append(current_line)
             self.question_data_line += 1
             current_line = self.question_data[self.question_data_line]
 
@@ -180,7 +184,7 @@ class Question:
         
         # heading
         # the heading should combine the question number and the heading
-        print()
+        print(f"Q{self.question_number}")
         print("{}. {}".format(question_ct, self.heading))
         print()
 
