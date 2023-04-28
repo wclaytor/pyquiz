@@ -1,7 +1,13 @@
+import os
 import random
 
-# Number of questions to be asked in a quiz.
-NUM_QUESTIONS = 1
+# https://github.com/theskumar/python-dotenv
+# take environment variables from .env.
+from dotenv import load_dotenv
+load_dotenv()
+
+# The number of questions to be asked in a quiz
+NUM_QUESTIONS = int(os.getenv("NUM_QUESTIONS"))
 
 class QuestionsList:
     """

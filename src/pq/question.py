@@ -1,5 +1,12 @@
+import os
+
+# https://github.com/theskumar/python-dotenv
+# take environment variables from .env.
+from dotenv import load_dotenv
+load_dotenv()
+
 # question designator
-QUESTION_DESIGNATOR = "#### Q"
+QUESTION_DESIGNATOR = os.getenv("QUESTION_DESIGNATOR")
 
 class Question:
     """

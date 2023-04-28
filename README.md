@@ -16,6 +16,15 @@ pipenv install
 pipenv run pip freeze > requirements.txt
 ```
 
+### create the environment settings file
+This project uses a `.env` file to store environment variables.
+To create the `.env` file, use the following command:
+```
+cp example.env .env
+```
+
+Then update the `.env` file with your own values.
+
 ### Run the script
 ```
 pipenv run python ./pyquiz.py

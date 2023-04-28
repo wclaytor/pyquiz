@@ -1,9 +1,11 @@
-# src/pyquiz.py
-
 import os
 
-SKILLS_DIR = "./skills"
+# https://github.com/theskumar/python-dotenv
+# take environment variables from .env.
+from dotenv import load_dotenv
+load_dotenv()
 
+SKILLS_DIR = os.getenv("SKILLS_DIR")
 
 class SkillsList:
     """

@@ -1,5 +1,3 @@
-# src/pyquiz.py
-
 import os
 import pyfiglet
 
@@ -7,32 +5,13 @@ from src.pq.skillsList import SkillsList
 from src.pq.questionsFile import QuestionsFile
 from src.pq.quiz import Quiz
 
-# To use your own settings, set USER_MODE to True
-# Then set the USER_SKILLS_DIR and USER_NUM_QUESTIONS values below
-USER_MODE = False
-USER_SKILLS_DIR = "../pyquiz-skills"
-USER_NUM_QUESTIONS = 5
+# https://github.com/theskumar/python-dotenv
+# take environment variables from .env.
+from dotenv import load_dotenv
+load_dotenv()
 
-# The default directory containing the example skills quizzes
-DEFAULT_SKILLS_DIR = "./skills"
+SKILLS_DIR = os.getenv("SKILLS_DIR")
 
-# The default number of questions to ask in a quiz
-DEFAULT_NUM_QUESTIONS = 5
-
-# question designator
-QUESTION_DESIGNATOR = "#### Q"
-
-# results directory
-RESULTS_DIR = "./results"
-
-# TODO: handle settings
-if USER_MODE:
-    SKILLS_DIR = USER_SKILLS_DIR
-    NUM_QUESTIONS = USER_NUM_QUESTIONS
-else:
-    SKILLS_DIR = DEFAULT_SKILLS_DIR
-    NUM_QUESTIONS = DEFAULT_NUM_QUESTIONS
- 
 if __name__ == '__main__':
     """
     The main function.
@@ -74,11 +53,11 @@ if __name__ == '__main__':
         # questions_list.display_example()
 
         # create quiz with just the first or last question (helpful for debugging)
-        quiz = Quiz(selected_skill, questions_list.get_first_question())
+        # quiz = Quiz(selected_skill, questions_list.get_first_question())
         # quiz = Quiz(selected_skill, questions_list.get_last_question())
 
         # create quiz with random questions
-        # quiz = Quiz(selected_skill, questions_list.get_random_questions())
+        quiz = Quiz(selected_skill, questions_list.get_random_questions())
 
         # display quiz
         quiz.display_quiz()

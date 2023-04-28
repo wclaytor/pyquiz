@@ -1,8 +1,13 @@
 import os
 import datetime
 
+# https://github.com/theskumar/python-dotenv
+# take environment variables from .env.
+from dotenv import load_dotenv
+load_dotenv()
+
 # results directory
-RESULTS_DIR = "./results"
+RESULTS_DIR = os.getenv("RESULTS_DIR")
 
 class QuizResults:
     """
