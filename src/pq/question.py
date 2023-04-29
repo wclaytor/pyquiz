@@ -57,10 +57,11 @@ class Question:
         line = self.question_data[0]
         dot_splitter = '. '
         heading_array = line.split(dot_splitter)
-        if len(heading_array) > 1:
-            # the question number is the first element
-            self.question_number = heading_array[0]
 
+        # the question number is the first element
+        self.question_number = heading_array[0]
+
+        if len(heading_array) > 1:
             # the heading is everything after the number
             # replace self.question_number with an empty string
             self.heading = line.replace(self.question_number + dot_splitter, "")
@@ -123,7 +124,8 @@ class Question:
                 # this could be a multi-line choice with no text on this line
                 current_choice_array = line.split('] ')
                 if len(current_choice_array) > 1:
-                    current_choice = current_choice_array[1]
+                    # current choice = the line with current_choice_array[0] removed
+                    current_choice = line.replace(current_choice_array[0] + '] ', '')
                 else:
                     current_choice = " \n"
 
@@ -133,7 +135,6 @@ class Question:
 
         # add the last choice to the list
         if current_choice is not None:
-            
             self.add_choice(current_choice, correct)
 
     def add_choice(self, choice, correct):
